@@ -38,6 +38,7 @@ camera = None
 last_log_time = 0
 
 latest_webcam_stats = {
+    
     "faces_detected": 0,
     "landmarks_count": 0,
     "ear": None,
