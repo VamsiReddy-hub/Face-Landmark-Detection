@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🧠 Face Landmark Detection & Drowsiness Monitoring
 
 A real-time **face landmark detection** and **drowsiness monitoring** system built with [MediaPipe](https://mediapipe.dev/), [OpenCV](https://opencv.org/), and [Flask](https://flask.palletsprojects.com/). The application detects **468 facial landmarks** and uses them to compute physiological signals for driver/user alertness monitoring — supporting both **static image uploads** and **live webcam streaming**.
@@ -6,6 +7,14 @@ A real-time **face landmark detection** and **drowsiness monitoring** system bui
 
 ## ✨ Features
 
+=======
+# Face-Landmark-Detection
+
+# 🧠 Face Landmark Detection & Drowsiness Monitoring
+A real-time **face landmark detection** and **drowsiness monitoring** system built with [MediaPipe](https://mediapipe.dev/), [OpenCV](https://opencv.org/), and [Flask](https://flask.palletsprojects.com/). The application detects **468 facial landmarks** and uses them to compute physiological signals for driver/user alertness monitoring — supporting both **static image uploads** and **live webcam streaming**.
+---
+## ✨ Features
+>>>>>>> 23d9252ca3f89dc2594a816c272116e6243a2318
 - 🎯 **468-point facial landmark detection** using MediaPipe FaceLandmarker
 - 👁️ **Eye Aspect Ratio (EAR)** — detects closed/drowsy eyes
 - 👄 **Mouth Aspect Ratio (MAR)** — detects yawning
@@ -15,11 +24,16 @@ A real-time **face landmark detection** and **drowsiness monitoring** system bui
 - 📊 **Live metrics dashboard** updated in real time
 - 💾 **Event logging** — saves snapshots when drowsiness is detected
 - 🌐 **Web UI** accessible from any browser
+<<<<<<< HEAD
 
 ---
 
 ## 🏗️ Project Structure
 
+=======
+---
+## 🏗️ Project Structure
+>>>>>>> 23d9252ca3f89dc2594a816c272116e6243a2318
 ```
 Face_Landmark_Detection/
 ├── app.py                     # Flask application entry point
@@ -49,6 +63,7 @@ Face_Landmark_Detection/
     ├── launch.json            # VS Code debug configuration
     └── settings.json          # VS Code Python interpreter settings
 ```
+<<<<<<< HEAD
 
 ---
 
@@ -80,10 +95,76 @@ A **DROWSY** alert is triggered when any condition persists beyond its consecuti
 
 ### 1. Clone the Repository
 
+=======
+---
+## ⚙️ How It Works
+### Landmark Detection
+The `FaceLandmarkDetector` class loads the **MediaPipe FaceLandmarker** model and detects up to 468 facial landmarks from a single face in an image or video frame. Landmarks are converted from normalized coordinates to pixel coordinates.
+### Drowsiness Detection
+The `DrowsinessDetector` class computes three metrics per frame:
+|
+ Metric 
+|
+ Formula 
+|
+ Trigger Threshold 
+|
+|
+--------
+|
+---------
+|
+------------------
+|
+|
+**
+EAR
+**
+ (Eye Aspect Ratio) 
+|
+`(A + B) / (2 × C)`
+ using 6 eye landmarks 
+|
+`< 0.22`
+ for 15+ frames 
+|
+|
+**
+MAR
+**
+ (Mouth Aspect Ratio) 
+|
+`vertical / horizontal`
+ using 4 lip landmarks 
+|
+`> 0.60`
+ for 7+ frames 
+|
+|
+**
+Head Pitch
+**
+|
+`forehead-to-nose / nose-to-chin`
+ distance ratio 
+|
+`> 1.15`
+ for 15+ frames 
+|
+A **DROWSY** alert is triggered when any condition persists beyond its consecutive-frame threshold.
+---
+## 🚀 Getting Started
+### Prerequisites
+- Python 3.9 or higher
+- A webcam (for live monitoring mode)
+- MediaPipe model file (`face_landmarker.task`)
+### 1. Clone the Repository
+>>>>>>> 23d9252ca3f89dc2594a816c272116e6243a2318
 ```bash
 git clone <your-repo-url>
 cd Face_Landmark_Detection
 ```
+<<<<<<< HEAD
 
 ### 2. Create a Virtual Environment
 
@@ -146,11 +227,117 @@ VS Code will automatically use the `.venv` Python interpreter.
 
 ### Example: Upload Image
 
+=======
+### 2. Create a Virtual Environment
+```bash
+python -m venv .venv
+```
+Activate it:
+- **Windows**: `.venv\Scripts\activate`
+- **macOS/Linux**: `source .venv/bin/activate`
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+### 4. Download the MediaPipe Model
+Download the `face_landmarker.task` model from the [MediaPipe Models page](https://developers.google.com/mediapipe/solutions/vision/face_landmarker#models) and place it at:
+```
+data/models/face_landmarker.task
+```
+### 5. Run the Application
+```bash
+python app.py
+```
+Open your browser and navigate to: **[http://127.0.0.1:5000](http://127.0.0.1:5000)**
+---
+## 🖥️ Running in VS Code
+A `.vscode/` configuration is included for one-click debugging:
+1. Open the `Face_Landmark_Detection` folder in VS Code.
+2. Press **`F5`** (or go to **Run & Debug** → **Python: Flask App**).
+3. The app will launch at [http://127.0.0.1:5000](http://127.0.0.1:5000).
+VS Code will automatically use the `.venv` Python interpreter.
+---
+## 🌐 API Endpoints
+|
+ Method 
+|
+ Endpoint 
+|
+ Description 
+|
+|
+--------
+|
+----------
+|
+-------------
+|
+|
+`GET`
+|
+`/`
+|
+ Serves the main web UI 
+|
+|
+`POST`
+|
+`/upload`
+|
+ Upload an image for face & drowsiness analysis 
+|
+|
+`POST`
+|
+`/webcam/start`
+|
+ Start the webcam capture 
+|
+|
+`POST`
+|
+`/webcam/stop`
+|
+ Stop the webcam capture 
+|
+|
+`GET`
+|
+`/webcam/frame`
+|
+ MJPEG stream of the annotated webcam feed 
+|
+|
+`GET`
+|
+`/webcam/stats`
+|
+ Latest real-time drowsiness metrics (JSON) 
+|
+|
+`GET`
+|
+`/outputs/<filename>`
+|
+ Retrieve a processed output image 
+|
+|
+`GET`
+|
+`/health`
+|
+ Server health check 
+|
+### Example: Upload Image
+>>>>>>> 23d9252ca3f89dc2594a816c272116e6243a2318
 ```bash
 curl -X POST http://127.0.0.1:5000/upload \
   -F "image=@your_photo.jpg"
 ```
+<<<<<<< HEAD
 
+=======
+>>>>>>> 23d9252ca3f89dc2594a816c272116e6243a2318
 **Response:**
 ```json
 {
@@ -168,6 +355,7 @@ curl -X POST http://127.0.0.1:5000/upload \
   "output_path": "/outputs/annotated_your_photo.jpg"
 }
 ```
+<<<<<<< HEAD
 
 ---
 
@@ -186,6 +374,43 @@ curl -X POST http://127.0.0.1:5000/upload \
 
 Key thresholds can be adjusted in `src/drowsiness_detection.py`:
 
+=======
+---
+## 📦 Dependencies
+|
+ Package 
+|
+ Purpose 
+|
+|
+---------
+|
+---------
+|
+|
+`flask`
+|
+ Web framework & REST API 
+|
+|
+`opencv-python`
+|
+ Image processing & webcam capture 
+|
+|
+`mediapipe >= 0.10.13`
+|
+ Face landmark detection model 
+|
+|
+`numpy`
+|
+ Numerical computations (EAR, MAR, distances) 
+|
+---
+## 🔧 Configuration
+Key thresholds can be adjusted in `src/drowsiness_detection.py`:
+>>>>>>> 23d9252ca3f89dc2594a816c272116e6243a2318
 ```python
 DrowsinessDetector(
     ear_threshold=0.22,        # Eye closure threshold (lower = less sensitive)
@@ -194,25 +419,38 @@ DrowsinessDetector(
     consecutive_frames=15      # Frames needed to trigger alert
 )
 ```
+<<<<<<< HEAD
 
+=======
+>>>>>>> 23d9252ca3f89dc2594a816c272116e6243a2318
 Image upload size limit is set in `app.py`:
 ```python
 app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10MB
 ```
+<<<<<<< HEAD
 
 ---
 
 ## 📝 Logging & Events
 
+=======
+---
+## 📝 Logging & Events
+>>>>>>> 23d9252ca3f89dc2594a816c272116e6243a2318
 - **Application logs** are written to the `logs/` directory via Python's logging module.
 - **Drowsiness events** (snapshots + metadata) are saved to `outputs/events/` whenever a drowsy state is detected.
   - In **webcam mode**, events are throttled to once every **2 seconds** to avoid flooding.
   - In **image upload mode**, a single event is logged per drowsy image.
+<<<<<<< HEAD
 
 ---
 
 ## 🙏 Acknowledgements
 
+=======
+---
+## 🙏 Acknowledgements
+>>>>>>> 23d9252ca3f89dc2594a816c272116e6243a2318
 - [MediaPipe](https://mediapipe.dev/) by Google — face landmark model
 - [OpenCV](https://opencv.org/) — image and video processing
 - [Flask](https://flask.palletsprojects.com/) — lightweight Python web framework
